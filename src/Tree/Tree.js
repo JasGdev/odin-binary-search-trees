@@ -1,4 +1,4 @@
-import { Node } from '../Node/Node.js';
+import { Node } from "../Node/Node.js";
 // BST
 // | height of left subtree - height of right subtree | < 1
 
@@ -32,7 +32,8 @@ export class Tree {
 		let currentNode = this.root;
 		while (currentNode != null) {
 			if (value == currentNode.data) return true;
-			currentNode = value < currentNode.data ? currentNode.left : currentNode.right;
+			currentNode =
+				value < currentNode.data ? currentNode.left : currentNode.right;
 		}
 		return false;
 	}
@@ -102,7 +103,7 @@ export class Tree {
 		// insert into queue a node
 		// when it is time dequeue it, add its children to the queue
 		if (callback === undefined) {
-			throw new Error('callback function is required');
+			throw new Error("callback function is required");
 		}
 		let queue = [this.root];
 		while (queue.length > 0) {
@@ -115,7 +116,7 @@ export class Tree {
 
 	levelOrderForEachRec(callback) {
 		if (callback === undefined) {
-			throw new Error('callback function is required');
+			throw new Error("callback function is required");
 		}
 		let queueArr = [this.root];
 		this.#levelOrderForEachRecHelper(callback, queueArr);
@@ -136,7 +137,7 @@ export class Tree {
 
 	inOrderForEach(callback, root = this.root) {
 		if (callback === undefined) {
-			throw new Error('callback function is required');
+			throw new Error("callback function is required");
 		}
 
 		if (root === null) return;
@@ -148,7 +149,7 @@ export class Tree {
 
 	preOrderForEach(callback, root = this.root) {
 		if (callback === undefined) {
-			throw new Error('callback function is required');
+			throw new Error("callback function is required");
 		}
 
 		if (root === null) return;
@@ -160,7 +161,7 @@ export class Tree {
 
 	postOrderForEach(callback, root = this.root) {
 		if (callback === undefined) {
-			throw new Error('callback function is required');
+			throw new Error("callback function is required");
 		}
 
 		if (root === null) return;
@@ -172,18 +173,18 @@ export class Tree {
 
 	height(value) {
 		let node = this.root;
-        
+
 		while (node.data != value) {
 			const shouldGoLeft = value < node.data;
 			node = shouldGoLeft ? node.left : node.right;
-            if (node === null) return undefined
+			if (node === null) return undefined;
 		}
-        return this.longestPathToLeaf(node)
+		return this.longestPathToLeaf(node);
 	}
 
 	longestPathToLeaf(node, count = 0) {
 		let maxCount;
-		if (node == null) return count-1;
+		if (node == null) return count - 1;
 		let leftMax = this.longestPathToLeaf(node.left, count + 1);
 		let rightMax = this.longestPathToLeaf(node.right, count + 1);
 		maxCount = Math.max(leftMax, rightMax);
@@ -201,28 +202,65 @@ export class Tree {
 		}
 	}
 
-    isBalanced(node = this.root){
-        if (node === null) return true
-        if (node.left === null && node.right === null) return true
+	// 	isBalanced(root = this.root) {
+	// 		if (root === null) return true;
+	// 		if (root.left == null && root.left == null) return true;
+	// 		if (root.left == null && root.right !== null) {
+	// 			if (this.height(root.right.data) < 2) {
+	// 				return true;
+	// 			}
+	// 		}
+	// 		if (root.right == null && root.left !== null) {
+	// 			if (this.height(root.left.data) < 2) {
+	// 				return true;
+	// 			}
+	// 		}
+	// 		this.isBalanced(root.left);
+	// 		this.isBalanced(root.right);
 
-        const rightHeight = this.height(node.right.data)
-        const leftHeight = this.height(node.left.data)
+	// 		if (
+	// 			Math.abs(this.height(root.right.data) - this.height(root.left.data)) < 2
+	// 		) {
+	// 			console.log(root)
+	// 			return true;
+	// 		}
 
+	// 		return false;
+	// 	}
+	// }
 
-        if (!node.left === null && node.right === null){
-            if (leftHeight > 1) return false
-        }
-        if (node.left === null && !node.right === null){
-            if (rightHeight > 1) return false
-        }
-        // both nodes are not null
-        else if (Math.abs(rightHeight - leftHeight) < 1){
-            if (this.isBalanced(node.left) && this.isBalanced(node.right)){
-                return true
-            }
+	isBalanced(root) {
+		if (root == null) return true;
+		if (root.left == null && root.left == null) return true;
+		if (root.left == null && root.right !== null) {
+			if (this.height(root.data) < 2) {
+				return true;
+			}
+		}
+		if (root.right == null && root.left !== null) {
+			if (this.height(root.data) < 2) {
+				return true;
+			}
+		}
+		console.log(root.left)
+		console.log(root.right)
+		this.isBalanced(root.left);
+		this.isBalanced(root.right);
 
-        }
+		if (
+			Math.abs(this.height(root.right.data) - this.height(root.left.data)) < 2
+		) {
+			// console.log(root)
+			return true;
+		}
+		const leftBalanced = this.isBalanced(root.left);
+		const rightBalanced = this.isBalanced(root.right);
 
-        return false
-    }
+		if (leftBalanced && rightBalanced) {
+			return true;
+		}
+		return false;
+
+		// recurse otherwise
+	}
 }
