@@ -29,11 +29,21 @@ export class Tree {
 	}
 
     includes(value){
-        return this.root.includes(value)
+        let currentNode = this.root;
+        while (currentNode != null){
+            if (value == currentNode.data) return true
+            currentNode = value < currentNode.data ? currentNode.left : currentNode.right
+
+        }
+        return false
     }
 
     insert(value){
         this.root.insert(value)
+    }
+
+    deleteItem(value){
+        // this.root.
     }
 
     
