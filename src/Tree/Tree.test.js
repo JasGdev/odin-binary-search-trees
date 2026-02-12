@@ -78,7 +78,7 @@ describe("insert() implementation", () => {
 
 		tree = new Tree(array);
 		expect(tree.root.listView()).toEqual(expectedListView);
-        console.log(prettyPrint(tree.root));
+        // console.log(prettyPrint(tree.root));
 
         tree.insert(2)
         let expectedListView2 = [4, [1, null, [2, null, null]], [5, null, null]];
@@ -86,17 +86,32 @@ describe("insert() implementation", () => {
         expect(tree.root.listView()).toEqual(expectedListView2);
         tree.insert(2)
         expect(tree.root.listView()).toEqual(expectedListView2);
-        console.log(prettyPrint(tree.root));
+        // console.log(prettyPrint(tree.root));
 
         tree.insert(3)
         let expectedListView3 = [4, [1, null, [2, null, [3, null, null]]], [5, null, null]];
         expect(tree.root.listView()).toEqual(expectedListView3);
-        console.log(prettyPrint(tree.root));
+        // console.log(prettyPrint(tree.root));
 
         tree.insert(6)
         let expectedListView4 = [4, [1, null, [2, null, [3, null, null]]], [5, null, [6, null, null]]];
         expect(tree.root.listView()).toEqual(expectedListView4);
-        console.log(prettyPrint(tree.root));
+        // console.log(prettyPrint(tree.root));
+	});
+
+
+    test("insert() implementation for a 0 size tree", () => {
+		let array = [];
+
+		tree = new Tree(array);
+		
+        console.log(tree)
+        tree.insert(2)
+        console.log(tree)
+        let expectedListView = [2, null, null];
+
+        expect(tree.root.listView()).toEqual(expectedListView);
+
 	});
 });
 

@@ -38,16 +38,21 @@ export class Tree {
 	}
 
 	insert(value) {
+        if (this.root === null){
+            this.root = new Node(value)
+            return
+        }
 		let currentNode = this.root;
 		while (currentNode != null) {
             if (currentNode.data === value) return;
 
-			let nextNode = value < currentNode.data ? currentNode.left : currentNode.right;
+            let shouldGoLeft = value < currentNode.data
+			let nextNode = shouldGoLeft ? currentNode.left : currentNode.right;
 			if (nextNode === null) {
-				if (value < currentNode.data) {
+				if (shouldGoLeft) {
 					currentNode.left = new Node(value);
 					return;
-				} else if (value > currentNode.data) {
+				} else {
 					currentNode.right = new Node(value);
 					return;
 				}
