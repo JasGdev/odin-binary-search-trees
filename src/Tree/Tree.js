@@ -114,61 +114,90 @@ export class Tree {
 	}
 
 	levelOrderForEachRec(callback) {
-        if (callback === undefined) {
+		if (callback === undefined) {
 			throw new Error('callback function is required');
 		}
-        let queueArr = [this.root]
-		this.#levelOrderForEachRecHelper(callback, queueArr)
+		let queueArr = [this.root];
+		this.#levelOrderForEachRecHelper(callback, queueArr);
 		// insert into queue a node
 		// when it is time dequeue it, add its children to the queue
 	}
 
-    #levelOrderForEachRecHelper(callback, queue){
-        let node = queue.shift()
-        if (node == null) {return}
-        if (node.left !== null) queue.push(node.left);
+	#levelOrderForEachRecHelper(callback, queue) {
+		let node = queue.shift();
+		if (node == null) {
+			return;
+		}
+		if (node.left !== null) queue.push(node.left);
 		if (node.right !== null) queue.push(node.right);
-        callback(node.data);
-        this.#levelOrderForEachRecHelper(callback, queue)
-    }
+		callback(node.data);
+		this.#levelOrderForEachRecHelper(callback, queue);
+	}
 
-    inOrderForEach(callback, root = this.root){
-        if (callback === undefined) {
+	inOrderForEach(callback, root = this.root) {
+		if (callback === undefined) {
 			throw new Error('callback function is required');
 		}
 
-        if (root === null) return
-        
-        this.inOrderForEach(callback, root.left)
-        callback(root.data)
-        this.inOrderForEach(callback, root.right)
-    }
+		if (root === null) return;
 
-    preOrderForEach(callback, root = this.root){
-        if (callback === undefined) {
+		this.inOrderForEach(callback, root.left);
+		callback(root.data);
+		this.inOrderForEach(callback, root.right);
+	}
+
+	preOrderForEach(callback, root = this.root) {
+		if (callback === undefined) {
 			throw new Error('callback function is required');
 		}
 
-        if (root === null) return
-        
-        callback(root.data)
-        this.preOrderForEach(callback, root.left)
-        this.preOrderForEach(callback, root.right)
-    }
+		if (root === null) return;
 
-    postOrderForEach(callback, root = this.root){
-        if (callback === undefined) {
+		callback(root.data);
+		this.preOrderForEach(callback, root.left);
+		this.preOrderForEach(callback, root.right);
+	}
+
+	postOrderForEach(callback, root = this.root) {
+		if (callback === undefined) {
 			throw new Error('callback function is required');
 		}
 
-        if (root === null) return
+		if (root === null) return;
+
+		this.postOrderForEach(callback, root.left);
+		this.postOrderForEach(callback, root.right);
+		callback(root.data);
+	}
+
+	height(value) {
+		let node = this.root;
         
-        this.postOrderForEach(callback, root.left)
-        this.postOrderForEach(callback, root.right)
-        callback(root.data)
-    }
+		while (node.data != value) {
+			const shouldGoLeft = value < node.data;
+			node = shouldGoLeft ? node.left : node.right;
+            if (node === null) return undefined
+		}
+        return this.longestPathToLeaf(node)
+	}
 
-    
+	longestPathToLeaf(node, count = 0) {
+		let maxCount;
+		if (node == null) return count-1;
+		let leftMax = this.longestPathToLeaf(node.left, count + 1);
+		let rightMax = this.longestPathToLeaf(node.right, count + 1);
+		maxCount = Math.max(leftMax, rightMax);
+		return maxCount;
+	}
 
-
+	depth(value, node = this.root, count = 0) {
+		if (node === null) return undefined;
+		if (node.data === value) return count;
+		const shouldGoLeft = value < node.data;
+		if (shouldGoLeft) {
+			return this.depth(value, node.left, count + 1);
+		} else {
+			return this.depth(value, node.right, count + 1);
+		}
+	}
 }

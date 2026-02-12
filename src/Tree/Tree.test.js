@@ -193,9 +193,33 @@ describe('in/pre/postOrderForEach() implementation', () => {
 
 		const postOrderResult = [];
 		tree.postOrderForEach((value) => postOrderResult.push(value));
-		expect(postOrderResult).toEqual([1, 4, 2, 8, 10, 5]);0
+		expect(postOrderResult).toEqual([1, 4, 2, 8, 10, 5]);
+		0;
 		expect(() => {
 			tree.postOrderForEach();
 		}).toThrow('callback function is required');
 	});
+});
+
+describe('height(), depth() implementation', () => {
+	test('height() on size 8 tree', () => {
+        let array = [5, 4, 1, 2, 8, 10, 13, 15];
+		tree = new Tree(array);
+        console.log(prettyPrint(tree.root))
+        expect(tree.depth(5)).toBe(2)
+        expect(tree.depth(2)).toBe(2)
+        expect(tree.depth(10)).toBe(2)
+        expect(tree.depth(8)).toBe(0)
+        expect(tree.depth(4)).toBe(1)
+        expect(tree.depth(1)).toBe(3)
+        expect(tree.height(8)).toBe(3)
+        expect(tree.height(4)).toBe(2)
+        expect(tree.height(2)).toBe(1)
+        expect(tree.height(5)).toBe(0)
+        expect(tree.height(13)).toBe(1)
+        expect(tree.height(15)).toBe(0)
+        expect(tree.height(25)).toBe(undefined)
+        expect(tree.height(0)).toBe(undefined)
+        
+    });
 });
