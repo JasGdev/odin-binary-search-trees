@@ -1,13 +1,13 @@
-import { Tree } from "./Tree.js";
-import { Node } from "../Node/Node.js";
-import { prettyPrint } from "../helper.js";
+import { Tree } from './Tree.js';
+import { Node } from '../Node/Node.js';
+import { prettyPrint } from '../helper.js';
 
 let tree;
 
 beforeEach(() => {});
 
-describe("logic implementation", () => {
-	test("Splitting left and right subtree", () => {
+describe('logic implementation', () => {
+	test('Splitting left and right subtree', () => {
 		let arr = [0, 1, 2, 3, 4];
 		const rootIndex = 2;
 		let left = arr.slice(0, rootIndex);
@@ -16,15 +16,15 @@ describe("logic implementation", () => {
 		expect(right).toEqual([3, 4]);
 	});
 
-	test("sorting and removing duplicate from array", () => {
+	test('sorting and removing duplicate from array', () => {
 		let array = [5, 1, 1, 0];
 		let arr = [...new Set(array)].sort((a, b) => a - b);
 		expect(arr).toEqual([0, 1, 5]);
 	});
 });
 
-describe("buildTree() implementation", () => {
-	test("buildTree() implementation for a 3 size tree with array length 4 ", () => {
+describe('buildTree() implementation', () => {
+	test('buildTree() implementation for a 3 size tree with array length 4 ', () => {
 		let array = [5, 4, 4, 1];
 		let expectedListView = [4, [1, null, null], [5, null, null]];
 
@@ -32,7 +32,7 @@ describe("buildTree() implementation", () => {
 		expect(tree.root.listView()).toEqual(expectedListView);
 	});
 
-	test("buildTree() implementation for a large tree", () => {
+	test('buildTree() implementation for a large tree', () => {
 		let array = [10, 5, 15, 3, 7, 12, 18, 1, 4, 6, 8, 11, 13, 17, 20, 7, 10, 12, 3];
 		let expectedListView = [
 			10,
@@ -46,8 +46,8 @@ describe("buildTree() implementation", () => {
 	});
 });
 
-describe("includes() implementation", () => {
-	test("includes() implementation large tree", () => {
+describe('includes() implementation', () => {
+	test('includes() implementation large tree', () => {
 		let array = [10, 5, 15, 3, 7, 12, 18, 1, 4, 6, 8, 11, 13, 17, 20, 7, 10, 12, 3];
 		let expectedListView = [
 			10,
@@ -64,110 +64,111 @@ describe("includes() implementation", () => {
 		expect(tree.includes(12)).toBe(true);
 		expect(tree.includes(6)).toBe(true);
 		expect(tree.includes(20)).toBe(true);
-        expect(tree.includes(100)).toBe(false);
+		expect(tree.includes(100)).toBe(false);
 		expect(tree.includes(0)).toBe(false);
 		expect(tree.includes(-5)).toBe(false);
 		expect(tree.includes(2)).toBe(false);
 	});
 });
 
-describe("insert() implementation", () => {
-	test("insert() implementation for a 3 size tree with array length 4 ", () => {
+describe('insert() implementation', () => {
+	test('insert() implementation for a 3 size tree with array length 4 ', () => {
 		let array = [5, 4, 4, 1];
 		let expectedListView = [4, [1, null, null], [5, null, null]];
 
 		tree = new Tree(array);
 		expect(tree.root.listView()).toEqual(expectedListView);
-        // console.log(prettyPrint(tree.root));
+		// console.log(prettyPrint(tree.root));
 
-        tree.insert(2)
-        let expectedListView2 = [4, [1, null, [2, null, null]], [5, null, null]];
+		tree.insert(2);
+		let expectedListView2 = [4, [1, null, [2, null, null]], [5, null, null]];
 
-        expect(tree.root.listView()).toEqual(expectedListView2);
-        tree.insert(2)
-        expect(tree.root.listView()).toEqual(expectedListView2);
-        // console.log(prettyPrint(tree.root));
+		expect(tree.root.listView()).toEqual(expectedListView2);
+		tree.insert(2);
+		expect(tree.root.listView()).toEqual(expectedListView2);
+		// console.log(prettyPrint(tree.root));
 
-        tree.insert(3)
-        let expectedListView3 = [4, [1, null, [2, null, [3, null, null]]], [5, null, null]];
-        expect(tree.root.listView()).toEqual(expectedListView3);
-        // console.log(prettyPrint(tree.root));
+		tree.insert(3);
+		let expectedListView3 = [4, [1, null, [2, null, [3, null, null]]], [5, null, null]];
+		expect(tree.root.listView()).toEqual(expectedListView3);
+		// console.log(prettyPrint(tree.root));
 
-        tree.insert(6)
-        let expectedListView4 = [4, [1, null, [2, null, [3, null, null]]], [5, null, [6, null, null]]];
-        expect(tree.root.listView()).toEqual(expectedListView4);
-        // console.log(prettyPrint(tree.root));
+		tree.insert(6);
+		let expectedListView4 = [4, [1, null, [2, null, [3, null, null]]], [5, null, [6, null, null]]];
+		expect(tree.root.listView()).toEqual(expectedListView4);
+		// console.log(prettyPrint(tree.root));
 	});
 
-
-    test("insert() implementation for a 0 size tree", () => {
+	test('insert() implementation for a 0 size tree', () => {
 		let array = [];
 
 		tree = new Tree(array);
-        tree.insert(2)
-        let expectedListView = [2, null, null];
+		tree.insert(2);
+		let expectedListView = [2, null, null];
 
-        expect(tree.root.listView()).toEqual(expectedListView);
-
+		expect(tree.root.listView()).toEqual(expectedListView);
 	});
 });
 
-
-describe("deleteItem() implementation", () => {
-	test("deleteItem() implementation for a 3 size tree with array length 4 ", () => {
+describe('deleteItem() implementation', () => {
+	test('deleteItem() implementation for a 3 size tree with array length 4 ', () => {
 		let array = [5, 4, 4, 1];
 		let expectedListView1 = [4, [1, null, null], [5, null, null]];
 
 		tree = new Tree(array);
 		expect(tree.root.listView()).toEqual(expectedListView1);
 
-        tree.deleteItem(4)
-        let expectedListView2 = [5, [1, null, null], null];
-        expect(tree.root.listView()).toEqual(expectedListView2);
+		tree.deleteItem(4);
+		let expectedListView2 = [5, [1, null, null], null];
+		expect(tree.root.listView()).toEqual(expectedListView2);
 
-        tree.deleteItem(1)
-        let expectedListView3 = [5, null, null];
-        expect(tree.root.listView()).toEqual(expectedListView3);
-
+		tree.deleteItem(1);
+		let expectedListView3 = [5, null, null];
+		expect(tree.root.listView()).toEqual(expectedListView3);
 	});
 
-    test("deleteItem() implementation for a 3 size tree with array length 4 ", () => {
+	test('deleteItem() implementation for a 3 size tree with array length 4 ', () => {
 		let array = [5, 4, 4, 1];
-		
 
 		tree = new Tree(array);
 
-        let expectedListView1 = [4, [1, null, null], [5, null, null]];
+		let expectedListView1 = [4, [1, null, null], [5, null, null]];
 		expect(tree.root.listView()).toEqual(expectedListView1);
 
-        
-        
-        let expectedListView2 = [5, [1, null, null], null];
-        tree.deleteItem(4)
-        expect(tree.root.listView()).toEqual(expectedListView2);
+		let expectedListView2 = [5, [1, null, null], null];
+		tree.deleteItem(4);
+		expect(tree.root.listView()).toEqual(expectedListView2);
 
-        let expectedListView3 = [5, null, null];
-        tree.deleteItem(1)
-        expect(tree.root.listView()).toEqual(expectedListView3);
-        tree.deleteItem(1)
-        expect(tree.root.listView()).toEqual(expectedListView3);
-        tree.deleteItem(5)
-        expect(tree.root).toBe(null)
+		let expectedListView3 = [5, null, null];
+		tree.deleteItem(1);
+		expect(tree.root.listView()).toEqual(expectedListView3);
+		tree.deleteItem(1);
+		expect(tree.root.listView()).toEqual(expectedListView3);
+		tree.deleteItem(5);
+		expect(tree.root).toBe(null);
 	});
 });
 
-describe("levelOrderForEach() implementation", () => {
-	test("levelOrderForEach() implementation for a 3 size tree with array length 4 ", () => {
+describe('levelOrderForEach() implementation', () => {
+	test('levelOrderForEach() implementation for a 3 size tree with array length 4 ', () => {
 		let array = [5, 4, 1, 2, 8, 10];
 
-        
+		const result = [];
+		const resultRec = [];
 
 		tree = new Tree(array);
-        console.log(prettyPrint(tree.root))
-        tree.levelOrderForEach()
+		console.log(prettyPrint(tree.root));
+		tree.levelOrderForEach((value) => result.push(value));
+		tree.levelOrderForEachRec((value) => resultRec.push(value));
+		expect(result).toEqual([5, 2, 10, 1, 4, 8]);
+		expect(resultRec).toEqual([5, 2, 10, 1, 4, 8]);
 
+		expect(() => {
+			tree.levelOrderForEach();
+		}).toThrow(new Error('callback function is required'));
+
+		expect(() => {
+			tree.levelOrderForEachRec();
+		}).toThrow(new Error('callback function is required'));
 	});
 });
-
-
-

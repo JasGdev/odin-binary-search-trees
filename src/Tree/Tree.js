@@ -101,17 +101,34 @@ export class Tree {
 	levelOrderForEach(callback) {
 		// insert into queue a node
 		// when it is time dequeue it, add its children to the queue
+		if (callback === undefined) {
+			throw new Error('callback function is required');
+		}
 		let queue = [this.root];
 		while (queue.length > 0) {
 			let node = queue.shift();
 			if (node.left !== null) queue.push(node.left);
 			if (node.right !== null) queue.push(node.right);
-            console.log(node.data)
+			callback(node.data);
 		}
 	}
 
-	levelOrderForEachRec(node, callback) {
+	levelOrderForEachRec(callback) {
+        if (callback === undefined) {
+			throw new Error('callback function is required');
+		}
+        let queueArr = [this.root]
+		this.#levelOrderForEachRecHelper(callback, queueArr)
 		// insert into queue a node
 		// when it is time dequeue it, add its children to the queue
 	}
+
+    #levelOrderForEachRecHelper(callback, queue){
+        let node = queue.shift()
+        if (node == null) {return}
+        if (node.left !== null) queue.push(node.left);
+		if (node.right !== null) queue.push(node.right);
+        callback(node.data);
+        this.#levelOrderForEachRecHelper(callback, queue)
+    }
 }
