@@ -104,14 +104,56 @@ describe("insert() implementation", () => {
 		let array = [];
 
 		tree = new Tree(array);
-		
-        console.log(tree)
         tree.insert(2)
-        console.log(tree)
         let expectedListView = [2, null, null];
 
         expect(tree.root.listView()).toEqual(expectedListView);
 
+	});
+});
+
+
+describe("deleteItem() implementation", () => {
+	test("deleteItem() implementation for a 3 size tree with array length 4 ", () => {
+		let array = [5, 4, 4, 1];
+		let expectedListView1 = [4, [1, null, null], [5, null, null]];
+
+		tree = new Tree(array);
+		expect(tree.root.listView()).toEqual(expectedListView1);
+
+        tree.deleteItem(4)
+        let expectedListView2 = [5, [1, null, null], null];
+        expect(tree.root.listView()).toEqual(expectedListView2);
+
+        tree.deleteItem(1)
+        let expectedListView3 = [5, null, null];
+        expect(tree.root.listView()).toEqual(expectedListView3);
+
+	});
+
+    test("deleteItem() implementation for a 3 size tree with array length 4 ", () => {
+		let array = [5, 4, 4, 1];
+		
+
+		tree = new Tree(array);
+
+        let expectedListView1 = [4, [1, null, null], [5, null, null]];
+		expect(tree.root.listView()).toEqual(expectedListView1);
+
+        
+        
+        let expectedListView2 = [5, [1, null, null], null];
+        tree.deleteItem(4)
+        expect(tree.root.listView()).toEqual(expectedListView2);
+
+        let expectedListView3 = [5, null, null];
+        tree.deleteItem(1)
+        expect(tree.root.listView()).toEqual(expectedListView3);
+        tree.deleteItem(1)
+        expect(tree.root.listView()).toEqual(expectedListView3);
+        console.log(tree)
+        tree.deleteItem(5)
+        expect(tree.root).toBe(null)
 	});
 });
 

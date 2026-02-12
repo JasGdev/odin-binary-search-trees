@@ -1,4 +1,4 @@
-import { Node } from "../Node/Node.js";
+import { Node } from '../Node/Node.js';
 // BST
 // | height of left subtree - height of right subtree | < 1
 
@@ -38,15 +38,14 @@ export class Tree {
 	}
 
 	insert(value) {
-        if (this.root === null){
-            this.root = new Node(value)
-            return
-        }
+		if (this.root === null) {
+			this.root = new Node(value);
+			return;
+		}
 		let currentNode = this.root;
 		while (currentNode != null) {
-            if (currentNode.data === value) return;
-
-            let shouldGoLeft = value < currentNode.data
+			if (currentNode.data === value) return;
+			let shouldGoLeft = value < currentNode.data;
 			let nextNode = shouldGoLeft ? currentNode.left : currentNode.right;
 			if (nextNode === null) {
 				if (shouldGoLeft) {
@@ -62,6 +61,40 @@ export class Tree {
 	}
 
 	deleteItem(value) {
-		// this.root.
+		// traverse until find value
+		// when find value matching node, remember node's parent, left and right
+		// if left and right are null, remove the node's reference in parent
+		// if only 1 child is null, set node's reference to non-null child in parent
+		// if both child are present
+		// find smallest value in right subtree, and swap places
+		// delete the value
+
+		this.root = this.#deleteRec(this.root, value);
+	}
+
+	#deleteRec(root, x) {
+		if (root === null) return root;
+
+		if (root.data > x) root.left = this.#deleteRec(root.left, x);
+		else if (root.data < x) root.right = this.#deleteRec(root.right, x);
+		else {
+			// Node with 0 or 1 child
+			if (root.left === null) return root.right;
+			if (root.right === null) return root.left;
+
+			// Node with 2 children
+			const succ = this.getSuccessor(root);
+			root.data = succ.data;
+			root.right = this.#deleteRec(root.right, succ.data);
+		}
+		return root;
+	}
+
+	getSuccessor(curr) {
+		curr = curr.right;
+		while (curr.data != null && curr.left != null) {
+			curr = curr.left;
+		}
+		return curr;
 	}
 }
