@@ -200,4 +200,29 @@ export class Tree {
 			return this.depth(value, node.right, count + 1);
 		}
 	}
+
+    isBalanced(node = this.root){
+        if (node === null) return true
+        if (node.left === null && node.right === null) return true
+
+        const rightHeight = this.height(node.right.data)
+        const leftHeight = this.height(node.left.data)
+
+
+        if (!node.left === null && node.right === null){
+            if (leftHeight > 1) return false
+        }
+        if (node.left === null && !node.right === null){
+            if (rightHeight > 1) return false
+        }
+        // both nodes are not null
+        else if (Math.abs(rightHeight - leftHeight) < 1){
+            if (this.isBalanced(node.left) && this.isBalanced(node.right)){
+                return true
+            }
+
+        }
+
+        return false
+    }
 }
