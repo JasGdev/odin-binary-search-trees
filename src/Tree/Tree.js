@@ -32,5 +32,9 @@ export class Tree {
         return this.root.includes(value)
     }
 
+    insert(value){
+        this.root.insert(value)
+    }
+
     
 }

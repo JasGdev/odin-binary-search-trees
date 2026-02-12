@@ -70,3 +70,33 @@ describe("includes() implementation", () => {
 		expect(tree.includes(2)).toBe(false);
 	});
 });
+
+describe("insert() implementation", () => {
+	test("insert() implementation for a 3 size tree with array length 4 ", () => {
+		let array = [5, 4, 4, 1];
+		let expectedListView = [4, [1, null, null], [5, null, null]];
+
+		tree = new Tree(array);
+		expect(tree.root.listView()).toEqual(expectedListView);
+        console.log(prettyPrint(tree.root));
+
+        tree.insert(2)
+        let expectedListView2 = [4, [1, null, [2, null, null]], [5, null, null]];
+
+        expect(tree.root.listView()).toEqual(expectedListView2);
+        tree.insert(2)
+        expect(tree.root.listView()).toEqual(expectedListView2);
+        console.log(prettyPrint(tree.root));
+
+        tree.insert(3)
+        let expectedListView3 = [4, [1, null, [2, null, [3, null, null]]], [5, null, null]];
+        expect(tree.root.listView()).toEqual(expectedListView3);
+        console.log(prettyPrint(tree.root));
+
+        tree.insert(6)
+        let expectedListView4 = [4, [1, null, [2, null, [3, null, null]]], [5, null, [6, null, null]]];
+        expect(tree.root.listView()).toEqual(expectedListView4);
+        console.log(prettyPrint(tree.root));
+	});
+});
+
