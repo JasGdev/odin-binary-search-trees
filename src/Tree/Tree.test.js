@@ -151,9 +151,23 @@ describe("deleteItem() implementation", () => {
         expect(tree.root.listView()).toEqual(expectedListView3);
         tree.deleteItem(1)
         expect(tree.root.listView()).toEqual(expectedListView3);
-        console.log(tree)
         tree.deleteItem(5)
         expect(tree.root).toBe(null)
 	});
 });
+
+describe("levelOrderForEach() implementation", () => {
+	test("levelOrderForEach() implementation for a 3 size tree with array length 4 ", () => {
+		let array = [5, 4, 1, 2, 8, 10];
+
+        
+
+		tree = new Tree(array);
+        console.log(prettyPrint(tree.root))
+        tree.levelOrderForEach()
+
+	});
+});
+
+
 
