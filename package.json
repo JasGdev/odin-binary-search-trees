@@ -6,7 +6,9 @@
 	"scripts": {
 		"test": "jest",
 		"watch": "jest --watch",
-		"auto": "nodemon"
+		"auto": "nodemon",
+		"nodeWatch": "jest --watch src/Node/Node.test.js",
+		"treeWatch": "jest --watch src/Tree/Tree.test.js"
 	}, 
 	"type": "module"
 }
