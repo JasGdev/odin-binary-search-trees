@@ -18,24 +18,4 @@ export class Node {
 	}
 
 
-	insert(value) {
-		if (this.includes(value)) {
-			return;
-		}
-
-		// if value is bigger than current root
-		if (this.data < value) {
-			if (this.right == null) {
-				this.right = new Node(value);
-			}
-			this.right.insert(value);
-		}
-		// if value is smaller than current root
-		else if (this.data > value) {
-			if (this.left == null) {
-				this.left = new Node(value);
-			}
-			this.left.insert(value);
-		}
-	}
 }
