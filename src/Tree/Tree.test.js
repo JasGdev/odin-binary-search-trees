@@ -150,14 +150,13 @@ describe('deleteItem() implementation', () => {
 });
 
 describe('levelOrderForEach() implementation', () => {
-	test('levelOrderForEach() implementation for a 3 size tree with array length 4 ', () => {
+	test('levelOrderForEach() implementation for a size 6 tree ', () => {
 		let array = [5, 4, 1, 2, 8, 10];
 
 		const result = [];
 		const resultRec = [];
 
 		tree = new Tree(array);
-		console.log(prettyPrint(tree.root));
 		tree.levelOrderForEach((value) => result.push(value));
 		tree.levelOrderForEachRec((value) => resultRec.push(value));
 		expect(result).toEqual([5, 2, 10, 1, 4, 8]);
@@ -170,5 +169,33 @@ describe('levelOrderForEach() implementation', () => {
 		expect(() => {
 			tree.levelOrderForEachRec();
 		}).toThrow(new Error('callback function is required'));
+	});
+});
+
+describe('in/pre/postOrderForEach() implementation', () => {
+	test('in/pre/postOrderForEach() implementation for a size 6 tree ', () => {
+		let array = [5, 4, 1, 2, 8, 10];
+		tree = new Tree(array);
+
+		const inOrderResult = [];
+		tree.inOrderForEach((value) => inOrderResult.push(value));
+		expect(inOrderResult).toEqual([1, 2, 4, 5, 8, 10]);
+		expect(() => {
+			tree.inOrderForEach();
+		}).toThrow(new Error('callback function is required'));
+
+		const preOrderResult = [];
+		tree.preOrderForEach((value) => preOrderResult.push(value));
+		expect(preOrderResult).toEqual([5, 2, 1, 4, 10, 8]);
+		expect(() => {
+			tree.preOrderForEach();
+		}).toThrow('callback function is required');
+
+		const postOrderResult = [];
+		tree.postOrderForEach((value) => postOrderResult.push(value));
+		expect(postOrderResult).toEqual([1, 4, 2, 8, 10, 5]);0
+		expect(() => {
+			tree.postOrderForEach();
+		}).toThrow('callback function is required');
 	});
 });
