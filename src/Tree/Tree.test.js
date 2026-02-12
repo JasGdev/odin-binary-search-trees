@@ -1,24 +1,20 @@
 import { Tree } from "./Tree.js";
 
-let tree
+let tree;
 
 beforeEach(() => {
-	tree = new Tree()
+	// tree = new Tree()
 });
 
-test("creating Linked list", () => {
-	// expect(list.headNode).toEqual(null);
+test("Splitting left and right subtree", () => {
+	let arr = [0, 1, 2, 3, 4];
+	const rootIndex = 2;
+	let left = arr.slice(0, rootIndex);
+	let right = arr.slice(rootIndex + 1, arr.length);
+	expect(left).toEqual([0, 1]);
+	expect(right).toEqual([3, 4]);
 });
 
 describe("append() implementation", () => {
-	test("adding to Linked List x2", () => {
-		// list.append("key1", 5);
-		// list.append("key2", 7);
-
-		// const testNode2 = new Node("key2", 7);
-		// const testNode1 = new Node("key1", 5, testNode2);
-		// expect(list.headNode).toEqual(testNode1);
-		// expect(list.headNode.nextNode).toEqual(testNode2);
-	});
+	test.skip("adding to Linked List x2", () => {});
 });
-
