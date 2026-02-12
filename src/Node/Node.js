@@ -16,4 +16,8 @@ export class Node {
 			return [this.data, null, null];
 		}
 	}
+
+
+
+
 }

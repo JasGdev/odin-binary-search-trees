@@ -1,4 +1,6 @@
 import { Tree } from "./Tree.js";
+import { Node } from "../Node/Node.js";
+import { prettyPrint } from "../helper.js";
 
 let tree;
 
@@ -40,5 +42,7 @@ describe("buildTree() implementation", () => {
 
 		tree = new Tree(array);
 		expect(tree.root.listView()).toEqual(expectedListView);
+        console.log(prettyPrint(tree.root))
+        
 	});
 });
