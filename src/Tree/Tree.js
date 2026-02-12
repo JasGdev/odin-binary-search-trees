@@ -28,5 +28,9 @@ export class Tree {
 		return root;
 	}
 
+    includes(value){
+        return this.root.includes(value)
+    }
+
     
 }
