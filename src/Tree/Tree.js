@@ -1,4 +1,4 @@
-import { Node } from "../Node/Node.js";
+import { Node } from '../Node/Node.js';
 // BST
 // | height of left subtree - height of right subtree | < 1
 
@@ -32,8 +32,7 @@ export class Tree {
 		let currentNode = this.root;
 		while (currentNode != null) {
 			if (value == currentNode.data) return true;
-			currentNode =
-				value < currentNode.data ? currentNode.left : currentNode.right;
+			currentNode = value < currentNode.data ? currentNode.left : currentNode.right;
 		}
 		return false;
 	}
@@ -103,7 +102,7 @@ export class Tree {
 		// insert into queue a node
 		// when it is time dequeue it, add its children to the queue
 		if (callback === undefined) {
-			throw new Error("callback function is required");
+			throw new Error('callback function is required');
 		}
 		let queue = [this.root];
 		while (queue.length > 0) {
@@ -116,7 +115,7 @@ export class Tree {
 
 	levelOrderForEachRec(callback) {
 		if (callback === undefined) {
-			throw new Error("callback function is required");
+			throw new Error('callback function is required');
 		}
 		let queueArr = [this.root];
 		this.#levelOrderForEachRecHelper(callback, queueArr);
@@ -137,7 +136,7 @@ export class Tree {
 
 	inOrderForEach(callback, root = this.root) {
 		if (callback === undefined) {
-			throw new Error("callback function is required");
+			throw new Error('callback function is required');
 		}
 
 		if (root === null) return;
@@ -149,7 +148,7 @@ export class Tree {
 
 	preOrderForEach(callback, root = this.root) {
 		if (callback === undefined) {
-			throw new Error("callback function is required");
+			throw new Error('callback function is required');
 		}
 
 		if (root === null) return;
@@ -161,7 +160,7 @@ export class Tree {
 
 	postOrderForEach(callback, root = this.root) {
 		if (callback === undefined) {
-			throw new Error("callback function is required");
+			throw new Error('callback function is required');
 		}
 
 		if (root === null) return;
@@ -202,65 +201,20 @@ export class Tree {
 		}
 	}
 
-	// 	isBalanced(root = this.root) {
-	// 		if (root === null) return true;
-	// 		if (root.left == null && root.left == null) return true;
-	// 		if (root.left == null && root.right !== null) {
-	// 			if (this.height(root.right.data) < 2) {
-	// 				return true;
-	// 			}
-	// 		}
-	// 		if (root.right == null && root.left !== null) {
-	// 			if (this.height(root.left.data) < 2) {
-	// 				return true;
-	// 			}
-	// 		}
-	// 		this.isBalanced(root.left);
-	// 		this.isBalanced(root.right);
+	// O(n^2)
+	isBalanced(root = this.root) {
+		if (root === null) return true;
+		const leftHeight = this.longestPathToLeaf(root.left);
+		const rightHeight = this.longestPathToLeaf(root.right);
+		// first check if |leftHeight - rightHeight|<2
+		if (Math.abs(leftHeight - rightHeight) > 1) return false;
+		// left/right node should be balanced
+		return this.isBalanced(root.left) && this.isBalanced(root.right);
+	}
 
-	// 		if (
-	// 			Math.abs(this.height(root.right.data) - this.height(root.left.data)) < 2
-	// 		) {
-	// 			console.log(root)
-	// 			return true;
-	// 		}
-
-	// 		return false;
-	// 	}
-	// }
-
-	isBalanced(root) {
-		if (root == null) return true;
-		if (root.left == null && root.left == null) return true;
-		if (root.left == null && root.right !== null) {
-			if (this.height(root.data) < 2) {
-				return true;
-			}
-		}
-		if (root.right == null && root.left !== null) {
-			if (this.height(root.data) < 2) {
-				return true;
-			}
-		}
-		console.log(root.left)
-		console.log(root.right)
-		this.isBalanced(root.left);
-		this.isBalanced(root.right);
-
-		if (
-			Math.abs(this.height(root.right.data) - this.height(root.left.data)) < 2
-		) {
-			// console.log(root)
-			return true;
-		}
-		const leftBalanced = this.isBalanced(root.left);
-		const rightBalanced = this.isBalanced(root.right);
-
-		if (leftBalanced && rightBalanced) {
-			return true;
-		}
-		return false;
-
-		// recurse otherwise
+	rebalance() {
+		const array = [];
+		this.inOrderForEach((value) => array.push(value));
+		this.root = Tree.#buildTree(array)
 	}
 }

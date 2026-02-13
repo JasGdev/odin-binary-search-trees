@@ -236,36 +236,49 @@ describe('isBalanced() implementation', () => {
 		let array = [1];
 		tree = new Tree(array);
 		// console.log(prettyPrint(tree.root))
-        expect(tree.isBalanced()).toBe(true)
+		expect(tree.isBalanced()).toBe(true);
 	});
 
 	test('isBalanced() on size 2 tree', () => {
 		let array = [1, 2];
 		tree = new Tree(array);
 		// console.log(prettyPrint(tree.root))
-        expect(tree.isBalanced()).toBe(true)
+		expect(tree.isBalanced()).toBe(true);
 	});
 	test('isBalanced() on size 3 tree', () => {
 		let array = [1, 2, 4];
 		tree = new Tree(array);
 		// console.log(prettyPrint(tree.root))
-        expect(tree.isBalanced()).toBe(true)
+		expect(tree.isBalanced()).toBe(true);
 	});
 
 	test('isBalanced() on size 5 tree', () => {
 		let array = [1, 2, 4, 5];
 		tree = new Tree(array);
-		tree.insert(0)
-		console.log(prettyPrint(tree.root))
-        expect(tree.isBalanced(tree.root)).toBe(false)
+		tree.insert(0);
+		// console.log(prettyPrint(tree.root));
+		expect(tree.isBalanced()).toBe(false);
 		tree.insert(6)
-		
-		expect(tree.isBalanced()).toBe(false)
-		
-
-		
+		// console.log(prettyPrint(tree.root));
+		expect(tree.isBalanced()).toBe(false);
+		tree.insert(3)
+		// console.log(prettyPrint(tree.root));
+		expect(tree.isBalanced()).toBe(true);
 	});
-
-
 });
 
+describe('rebalance() implementation', () => {
+	test('isBalanced() on size 5 tree', () => {
+		let array = [1, 2, 4, 5];
+		tree = new Tree(array);
+		tree.insert(0);
+		console.log(prettyPrint(tree.root));
+		expect(tree.isBalanced()).toBe(false);
+		tree.insert(6)
+		console.log(prettyPrint(tree.root));
+		expect(tree.isBalanced()).toBe(false);
+		tree.rebalance()
+		expect(tree.isBalanced()).toBe(true);
+		console.log(prettyPrint(tree.root));
+	});
+});
